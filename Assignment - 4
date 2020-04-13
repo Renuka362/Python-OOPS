@@ -1,0 +1,251 @@
+*-------Task1-------*
+
+Input:
+[1, 2]
+
+Output:
+1
+2
+
+
+---------------------------------------------------
+
+class Block:
+    def __init__(self,value):
+        self._value = value
+        
+    @property
+    def value(self):
+        return self._value
+    
+
+if __name__ == "__main__":
+    import json
+    input_args = json.loads(input())
+
+    block_one = Block(input_args[0])
+    block_two = Block(input_args[1])
+
+    try:
+        block_one._value
+    except AttributeError:
+        print("Missed protecting value")
+
+    try:
+        block_one.value = 1
+        print("Missed setting safe access to value")
+    except AttributeError:
+        pass
+
+    print(block_one.value)
+    print(block_two.value)
+*------------------------------------------------------*
+
+*-----------task2----------*
+
+Input:
+12
+
+
+Output:
++--+
+|12|
++--+
+
+
+---------------------------------------------------
+
+class Block:
+    def __init__(self,block_value):
+        self.block_value = block_value
+        self.l = len(str(self.block_value))
+        
+    def __str__(self):
+        return '+'+'-'*(self.l)+'+'+'\n'+'|'+str(self.block_value)+'|'+'\n'+'+'+'-'*(self.l)+'+'
+    
+    
+
+if __name__ == "__main__":
+    block_value = int(input())
+
+    block_one = Block(block_value)
+
+    print(block_one)
+*-----------------------------------------------------------------------------------------------------*
+
+*---------Task3---------*
+
+Input:
+[2, 2]
+
+Output:
+True
+4
+
+
+---------------------------------------------------
+
+class Block:
+    def __init__(self,value):
+        self.value = value
+    
+    def __add__(self,other):
+        if self.value == other.value:
+            return Block(self.value+other.value)
+        else:
+            print("Cannot add blocks with different values")
+
+if __name__ == "__main__":
+    import json
+
+    input_args = json.loads(input())
+
+    block_one = Block(input_args[0])
+    block_two = Block(input_args[1])
+
+    block_result = block_one + block_two
+    
+
+    print(isinstance(block_result, Block))
+    if isinstance(block_result, Block):
+        print(block_result.value)
+*---------------------------------------------------*
+
+*-------Task4-------*
+Input:
+[2,2]
+
+
+Output:
+True
+True
+True
+False
+4
+
+
+---------------------------------------------------
+
+class Block:
+    def __init__(self,value):
+        self._value = value
+        
+    @property
+    def value(self):
+        return self._value
+
+class SuperBlock(Block):
+    def __mul__(self,other):
+        return Block(self._value * other._value)
+    
+   
+
+if __name__ == "__main__":
+    import json
+    input_args = json.loads(input())
+
+    super_block_one = SuperBlock(input_args[0])
+    super_block_two = SuperBlock(input_args[1])
+
+    try:
+        super_block_one._value
+    except AttributeError:
+        print("Missed protecting value")
+
+    try:
+        super_block_one.value = 1
+        print("Missed setting safe access to value")
+    except AttributeError:
+        pass
+
+    print(isinstance(super_block_one, SuperBlock))
+
+    print(isinstance(super_block_one, Block))
+
+    product_block = super_block_one * super_block_two
+
+    print(isinstance(product_block, Block))
+    print(isinstance(product_block, SuperBlock))
+    print(product_block.value)
+
+    block_four = Block(4)
+
+    try:
+        block_four * product_block
+        print("Multiplication is not supported on Block objects")
+    except TypeError:
+        pass
+*---------------------------------------------------------------------*
+
+*---------Task5-------*
+
+Input:
+2
+
+
+Output:
+True
+True
++-+
+|1|
++-+
++-+
+|1|
++-+
+
+
+---------------------------------------------------
+
+class Block:
+    def __init__(self,value):
+        self._value = value
+    
+    @property
+    def value(self):
+        return self._value
+
+class SuperBlock(Block):
+    def split(self):
+        if self.value > 1:
+            div = self.value//2
+            v = self.value - div
+            a =  ('+'+'-'*(len(str(div)))+'+'+'\n'+'|'+str(div)+'|'+'\n'+'+'+'-'*(len(str(div)))+'+')
+            b = ('+'+'-'*(len(str(v)))+'+'+'\n'+'|'+str(v)+'|'+'\n'+'+'+'-'*(len(str(v)))+'+')
+            return a,b
+        else:
+             b = ['+-+'+'\n'+'|'+str(1)+'|'+'\n'+'+-+']
+             return b
+            
+
+if __name__ == "__main__":
+    super_block_value = int(input())
+
+    super_block_one = SuperBlock(super_block_value)
+
+    try:
+        super_block_one._value
+    except AttributeError:
+        print("Missed protecting value")
+
+    try:
+        super_block_one.value = 1
+        print("Missed setting safe access to value")
+    except AttributeError:
+        pass
+
+    print(isinstance(super_block_one, SuperBlock))
+
+    try:
+        print(isinstance(super_block_one, Block))
+    except:
+        print("You should use Block class to build SuperBlock")
+
+    blocks = super_block_one.split()
+    if len(blocks) > 1:
+        print(blocks[0])
+        print(blocks[1])
+    else:
+        print(blocks[0])
+*----------------------------------------------------------------*
+
+
