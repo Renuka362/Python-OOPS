@@ -1,0 +1,638 @@
+<-------------------------------Fraction-------------------------->
+*------Task1----*
+
+Input:
+[1, 2]
+
+Output:
+True
+1
+2
+
+
+---------------------------------------------------
+
+#import math
+from fractions import Fraction as frac
+class Fraction(object):
+    def __init__(self,numerator,denominator):
+        fr = frac(numerator,denominator)
+        self._numerator = fr.numerator
+        self._denominator = fr.denominator
+        self.value = 0
+    
+    @property
+    def numerator(self):
+        return self._numerator
+    
+    @property
+    def denominator(self):
+        return self._denominator
+
+""" 
+    @property
+    def numerator(self):
+       
+        self.value = math.gcd(self._numerator,self._denominator)
+            
+        if self._numerator > 0 and self._denominator > 0:
+            return self._numerator//self.value
+            
+        elif self._numerator > 0 and self._denominator < 0:
+            return -(self._numerator//self.value)
+            
+        elif self._numerator < 0 and self._denominator < 0:
+            return -(self._numerator//self.value)
+            
+            
+        else:
+            return self._numerator//self.value
+"""
+
+    
+"""
+    @property
+    def denominator(self):
+        if self._denominator < 0 and self._numerator > 0:
+            return -self._denominator//self.value
+        elif self._denominator < 0 and self._numerator < 0:
+            return -(self._denominator//self.value)
+           
+        else:
+            return self._denominator//self.value
+"""    
+    
+
+if __name__ == "__main__":
+    import json
+
+    input_args = list(json.loads(input()))
+
+    fraction = Fraction(*input_args)
+
+    try:
+        fraction._numerator
+    except AttributeError:
+        print("Missed protecting numerator")
+
+    try:
+        fraction._denominator
+    except AttributeError:
+        print("Missed protecting denominator")
+
+    try:
+        fraction.numerator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    try:
+        fraction.denominator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    print(isinstance(fraction, Fraction))
+    print(fraction.numerator)
+    print(fraction.denominator)
+*--------------------------------------------------------*
+
+*-----Task2-------*
+Input:
+[43, 23]
+
+Output:
+True
+43/23
+
+
+---------------------------------------------------
+
+import math
+class Fraction(object):
+    def __init__(self,numerator=0,denominator=0):
+        if numerator < 0 and denominator <0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+            
+        elif numerator > 0 and denominator <0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+        
+        else:
+            self._numerator = numerator
+            self._denominator = denominator
+            self.value = 0
+            
+        self.value = math.gcd(self._numerator,self._denominator)
+        self._numerator =  self._numerator//self.value
+        self._denominator = self._denominator//self.value
+        
+        
+    @property
+    def numerator(self):
+        return self._numerator
+        
+    @property
+    def denominator(self):
+        return self._denominator
+    
+        
+        
+    def __str__(self):
+        if self._numerator > 0 and self._denominator < 0:
+            return '-{}/{}'.format(self._numerator,-self._denominator)
+        elif self._numerator < 0 and self._denominator < 0:
+            return '{}/{}'.format(-self._numerator,-self._denominator)
+        else:
+            return '{}/{}'.format(self._numerator,self._denominator)
+    
+
+if __name__ == "__main__":
+    import json
+
+    input_args = list(json.loads(input()))
+
+    fraction_one = Fraction(*input_args)
+
+    try:
+        fraction_one._numerator
+    except AttributeError:
+        print("Missed protecting numerator")
+
+    try:
+        fraction_one._denominator
+    except AttributeError:
+        print("Missed protecting denominator")
+
+    try:
+        fraction_one.numerator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    try:
+        fraction_one.denominator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    print(isinstance(fraction_one, Fraction))
+    print(fraction_one)
+*------------------------------------------------------------------*
+
+*-----Task3-----*Addition------*
+
+Input:
+[[-5, 2], [3, 2]]
+
+Output:
+-5/2 + 3/2 = -1/1
+True
+True
+-1
+1
+
+
+---------------------------------------------------
+
+
+"""
+from fractions import Fraction as frac
+class Fraction(object):
+    def __init__(self,numerator=0,denominator=0):
+            self._numerator = numerator
+            self._denominator = denominator
+            
+    def __add__(self,other):
+        fr1 = frac(self._numerator,self._denominator) 
+        fr2 = frac(other._numerator,other._denominator)
+        v = frac(self._numerator,self._denominator) + frac(other._numerator,other._denominator)
+        print(f'{fr1._numerator}/{fr1._denominator} + {fr2._numerator}/{fr2._denominator} = {v._numerator}/{v._denominator}')
+        return v
+        
+    @property
+    def numerator(self):
+        return self._numerator
+        
+    @property
+    def denominator(self):
+        return self._denominator
+"""
+import math
+class Fraction(object):
+    def __init__(self,numerator=0,denominator=0):
+        if numerator < 0 and denominator <0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+            
+        elif numerator > 0 and denominator <0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+        
+        else:
+            self._numerator = numerator
+            self._denominator = denominator
+            self.value1 = 0
+            
+         
+    def __add__(self,other):
+        self.value1 = math.gcd(self._numerator,self._denominator)
+        self.value2 = math.gcd(other._numerator,other._denominator)
+        v = math.gcd(self._numerator,other._denominator)
+        lcm = (self._denominator*other._denominator)//v
+        ans1 = lcm//self._denominator
+        ans2 = lcm//other._denominator
+        ad = (self._numerator*ans1 + other._numerator*ans2)
+        gcd = math.gcd(ad,lcm)
+        print(f'{self._numerator//self.value1}/{self._denominator//self.value1} + {other._numerator//self.value2}/{other._denominator//self.value2} = {ad//gcd}/{lcm//gcd}')
+        return Fraction(ad//gcd,lcm//gcd)
+        
+        
+    @property
+    def numerator(self):
+        return self._numerator
+        
+    @property
+    def denominator(self):
+        return self._denominator
+
+
+if __name__ == "__main__":
+    import json
+
+    input_args = list(json.loads(input()))
+
+    fraction_one = Fraction(*input_args[0])
+    fraction_two = Fraction(*input_args[1])
+
+    result_fraction = fraction_one + fraction_two
+
+    try:
+        fraction_one._numerator
+    except AttributeError:
+        print("Missed protecting numerator")
+
+    try:
+        fraction_one._denominator
+    except AttributeError:
+        print("Missed protecting denominator")
+
+    try:
+        fraction_one.numerator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    try:
+        fraction_one.denominator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    print(isinstance(fraction_one, Fraction))
+    print(isinstance(fraction_two, Fraction))
+    print(result_fraction.numerator)
+    print(result_fraction.denominator)
+*---------------------------------------------------------*
+
+*-----Task4-----*subtraction-----*
+
+Input:
+[[1, 2], [1, 2]]
+
+Output:
+1/2 - 1/2 = 0/1
+True
+True
+0
+1
+
+
+---------------------------------------------------
+
+"""
+from fractions import Fraction as frac
+class Fraction(object):
+    def __init__(self,numerator=0,denominator=0):
+            self._numerator = numerator
+            self._denominator = denominator
+            
+    def __sub__(self,other):
+        fr1 = frac(self._numerator,self._denominator) 
+        fr2 = frac(other._numerator,other._denominator)
+        v = frac(self._numerator,self._denominator) - frac(other._numerator,other._denominator)
+        print(f'{fr1._numerator}/{fr1._denominator} - {fr2._numerator}/{fr2._denominator} = {v._numerator}/{v._denominator}')
+        return v
+        
+    @property
+    def numerator(self):
+        return self._numerator
+        
+    @property
+    def denominator(self):
+        return self._denominator
+"""
+import math
+class Fraction(object):
+    def __init__(self,numerator=0,denominator=0):
+        if numerator < 0 and denominator <0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+            
+        elif numerator > 0 and denominator <0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+        
+        else:
+            self._numerator = numerator
+            self._denominator = denominator
+            self.value1 = 0
+            
+         
+    def __sub__(self,other):
+        self.value1 = math.gcd(self._numerator,self._denominator)
+        self.value2 = math.gcd(other._numerator,other._denominator)
+        v = math.gcd(self._numerator,other._denominator)
+        lcm = (self._denominator*other._denominator)//v
+        ans1 = lcm//self._denominator
+        ans2 = lcm//other._denominator
+        ad = (self._numerator*ans1 - other._numerator*ans2)
+        gcd = math.gcd(ad,lcm)
+        print(f'{self._numerator//self.value1}/{self._denominator//self.value1} - {other._numerator//self.value2}/{other._denominator//self.value2} = {ad//gcd}/{lcm//gcd}')
+        return Fraction(ad//gcd,lcm//gcd)
+        
+        
+    @property
+    def numerator(self):
+        return self._numerator
+        
+    @property
+    def denominator(self):
+        return self._denominator
+
+
+if __name__ == "__main__":
+    import json
+
+    input_args = list(json.loads(input()))
+
+    fraction_one = Fraction(*input_args[0])
+    fraction_two = Fraction(*input_args[1])
+
+    result_fraction = fraction_one - fraction_two
+
+    try:
+        fraction_one._numerator
+    except AttributeError:
+        print("Missed protecting numerator")
+
+    try:
+        fraction_one._denominator
+    except AttributeError:
+        print("Missed protecting denominator")
+
+    try:
+        fraction_one.numerator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    try:
+        fraction_one.denominator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    print(isinstance(fraction_one, Fraction))
+    print(isinstance(fraction_two, Fraction))
+    print(result_fraction.numerator)
+    print(result_fraction.denominator)
+*------------------------------------------------*
+
+*------Multiplication-----Task5-----*
+
+Input:
+[[1, 2], [1, 2]]
+
+Output:
+1/2 * 1/2 = 1/4
+True
+True
+1
+4
+
+
+---------------------------------------------------
+
+"""
+from fractions import Fraction as frac
+class Fraction(object):
+    def __init__(self,numerator=0,denominator=0):
+            self._numerator = numerator
+            self._denominator = denominator
+            
+    def __mul__(self,other):
+        fr1 = frac(self._numerator,self._denominator) 
+        fr2 = frac(other._numerator,other._denominator)
+        v = frac(self._numerator,self._denominator) * frac(other._numerator,other._denominator)
+        print(f'{fr1._numerator}/{fr1._denominator} * {fr2._numerator}/{fr2._denominator} = {v._numerator}/{v._denominator}')
+        return v
+        
+    @property
+    def numerator(self):
+        return self._numerator
+        
+    @property
+    def denominator(self):
+        return self._denominator
+    
+    self.value1 = math.gcd(self._numerator,self._denominator)
+        self.value2 = math.gcd(other._numerator,other._denominator)
+        v = math.gcd(self._denominator,other._denominator)
+        print(v)
+        lcm = (self._denominator*other._denominator)//v
+        print(lcm)
+        ans1 = lcm//self._denominator
+        print(ans1)
+        ans2 = lcm//other._denominator
+        print(ans2)
+        ad = ((self._numerator*ans1) * (other._numerator*ans2))
+        print(ad)
+        gcd = math.gcd(ad,lcm)
+        print(gcd)
+        
+"""
+import math
+class Fraction(object):
+    def __init__(self,numerator=0,denominator=0):
+        if numerator < 0 and denominator <0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+            
+        elif numerator > 0 and denominator <0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+        
+        else:
+            self._numerator = numerator
+            self._denominator = denominator
+            self.value1 = 0
+            
+         
+    def __mul__(self,other):
+        v1 = math.gcd(self._numerator,self._denominator)
+        v2 = math.gcd(other._numerator,other._denominator)
+       
+        num = self._numerator*other._numerator
+        den = self._denominator*other._denominator
+        w = Fraction(num,den)
+        gcd = math.gcd(w.numerator,w.denominator)
+        print(f'{self._numerator//v1}/{self.denominator//v1} * {other._numerator//v2}/{other._denominator//v2} = {w._numerator//gcd}/{w._denominator//gcd}')
+        return Fraction(num//gcd,den//gcd)
+       
+        
+        
+    @property
+    def numerator(self):
+        return self._numerator
+        
+    @property
+    def denominator(self):
+        return self._denominator
+
+
+if __name__ == "__main__":
+    import json
+
+    input_args = list(json.loads(input()))
+
+    fraction_one = Fraction(*input_args[0])
+    fraction_two = Fraction(*input_args[1])
+
+    result_fraction = fraction_one * fraction_two
+
+    try:
+        fraction_one._numerator
+    except AttributeError:
+        print("Missed protecting numerator")
+
+    try:
+        fraction_one._denominator
+    except AttributeError:
+        print("Missed protecting denominator")
+
+    try:
+        fraction_one.numerator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    try:
+        fraction_one.denominator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    print(isinstance(fraction_one, Fraction))
+    print(isinstance(fraction_two, Fraction))
+    print(result_fraction.numerator)
+    print(result_fraction.denominator)
+*-----------------------------------------------------------*
+
+*-------Division-----*Task6-------*
+
+Input:
+[[1, 2], [1, 2]]
+
+Output:
+1/2 / 1/2 = 1/1
+True
+True
+1
+1
+
+
+---------------------------------------------------
+
+*------Task7-------*
+
+Input:
+[23, 43]
+
+Output:
+23/43 = 0.535
+True
+0.535
+
+
+---------------------------------------------------
+
+class Fraction(object):
+    def __init__(self,numerator,denominator):
+        if numerator < 0 and denominator < 0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+            
+        elif numerator > 0 and denominator <0:
+            self._numerator = -numerator
+            self._denominator = -denominator
+            
+        else:
+            self._numerator = numerator
+            self._denominator = denominator
+        
+        
+    @property
+    def numerator(self):
+        return self._numerator
+    
+    @property
+    def denominator(self):
+        return self._denominator
+        
+    def to_value(self):
+        v = self._numerator/self._denominator
+        print(f'{self._numerator}/{self._denominator} = {round(v,3)}')
+        return round(v,3)
+            
+    
+        
+
+if __name__ == "__main__":
+    import json
+
+    input_args = list(json.loads(input()))
+
+    fraction_one = Fraction(*input_args)
+
+    result_decimal_value = fraction_one.to_value()
+
+    try:
+        fraction_one._numerator
+    except AttributeError:
+        print("Missed protecting numerator")
+
+    try:
+        fraction_one._denominator
+    except AttributeError:
+        print("Missed protecting denominator")
+
+    try:
+        fraction_one.numerator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+
+    try:
+        fraction_one.denominator = 1
+        print("Missed setting safe access to numerator")
+    except AttributeError:
+        pass
+    
+    print(isinstance(fraction_one, Fraction))
+    print(result_decimal_value)
+    
+*------------------------------------------------------------*    
+
+
