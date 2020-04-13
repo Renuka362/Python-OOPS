@@ -66,3 +66,95 @@ if __name__ == "__main__":
     print(get_bike_object_current_speed(bike))
     
     *----------------------------------------*
+    
+ 
+ Person
+ 
+Input:
+Rahul
+10
+
+Output:
+Rahul is 10 years old
+
+
+"""
+class Team:
+    def __init__(self,name,i_d,pos):
+        self.name = name
+        self.i_d = i_d
+        self.t_pos = pos
+    
+    def team_17(self):
+        print("{},{},{}".format(self.name,self.i_d,self.t_pos))
+        
+if __name__ == "__main__":
+    for i in range(int(input())):
+        tm = Team(input(),int(input()),input())
+        tm.team_17()
+"""
+class Person:
+    def __init__(self, name, age):
+        # TODO: Fill code here
+        self.name = name
+        self.age = age
+        pass
+
+
+def get_person_details(person):
+    return "{} is {} years old".format(person.name, person.age)
+
+
+if __name__ == "__main__":
+    name = input()
+    age = int(input())
+
+    person = Person(name=name, age=age)
+    print(get_person_details(person))
+
+*-------------------------------------------*
+
+
+Rectangle:
+Input:
+12.2
+10
+
+Output:
+122.0
+44.4
+
+
+---------------------------------------------------
+
+class Rectangle:
+
+    def __init__(self, length, breadth):
+        # TODO: write your code here
+        self.length = length
+        self.breadth = breadth
+        pass
+
+    def get_area(self):
+        # TODO: write your code here
+        return rectangle.length*rectangle.breadth
+        pass
+
+    def get_perimeter(self):
+        # TODO: write your code here
+        return 2*(rectangle.length+rectangle.breadth)
+        pass
+
+
+if __name__ == "__main__":
+    length = float(input())
+    breadth = float(input())
+
+    rectangle = Rectangle(length=length, breadth=breadth)
+    print(rectangle.get_area())
+    print(rectangle.get_perimeter())
+
+
+---------------------------------------------------
+
+
