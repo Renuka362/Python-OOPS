@@ -1,0 +1,75 @@
+*--------DerivedAttribute---------*
+class Person:
+    def __init__(self,first,last):
+        self.first_name = first
+        self.last_name = last
+    
+    @property
+    def full_name(self):
+        greet()
+        return self.first_name+" "+self.last_name
+        
+def greet():
+    print("hii "+prs.first_name)
+    print("Hello "+prs.last_name)      
+        
+prs = Person("Renuka","Cheemala")
+print(prs.first_name)
+print(prs.last_name)
+print(prs.full_name)
+
+
+**--------BankAccount-------**
+
+class BankAccount:
+    def __init__(self,account_no):
+        self.Account_no = str(account_no)
+        self.__balance = 0
+        self.cash_limit = 10000
+        
+    def with_draw(self,money):
+        if self.__balance >= money:
+            self.__balance -= money
+            print("with_draw: ",money)
+        else:
+            print("Insfficient balance")
+        
+        
+    def deposit(self,money):
+        self.__balance += money
+        print("deposit: ",self.__balance)
+        
+    def get_balance(self):
+        #return self.__balance
+        print("balance: ",self.__balance)
+        
+class subclass(BankAccount):
+    def __init__(self,account_no):
+        BankAccount.__init__(self,account_no)
+        print("hello")
+        print("proteected: ",self.cash_limit)
+        
+#bank = BankAccount("132435fgf224")
+bank = subclass("132435fgf224")
+bank.deposit(int(input()))
+#print(bank.balance)
+bank.with_draw(int(input()))
+#print(bank.balance)
+bal = bank.get_balance()
+#print(bal)
+
+***--------Team-------***
+
+class Team:
+    def __init__(self,name,i_d,pos):
+        self.name = name
+        self.i_d = i_d
+        self.t_pos = pos
+    
+    def team_17(self):
+        print("{},{},{}".format(self.name,self.i_d,self.t_pos))
+        
+if __name__ == "__main__":
+    for i in range(int(input())):
+        tm = Team(input(),int(input()),input())
+        tm.team_17()
