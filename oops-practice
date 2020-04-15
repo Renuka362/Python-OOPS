@@ -1,3 +1,89 @@
+class Dog:
+    def __init__(self,name,age):
+        #print(self)
+        self.name = name
+        self.age = age
+        
+    def run(self):
+        print("running")
+        
+
+class BullDog(Dog):
+    #pass
+    def run(self):
+        print(f'{self.name} runs slowly')
+        
+class RusselTellier(BullDog):
+    def description(self):
+        print(f'{self.name} {self.age}')
+        
+
+        
+bulldog = BullDog("tommy",6)
+dog = Dog("mickey",9)
+#print(dog.name)
+russeltellier = RusselTellier("munna",7)
+russeltellier.description()
+dog.run()
+bulldog.run()
+russeltellier.run()
+print(russeltellier.name)
+print(isinstance(dog,Dog))
+print(isinstance(russeltellier,RusselTellier))
+print(isinstance(bulldog,BullDog))
+
+
+
+        
+
+**-------instance methods-------*
+class Dog:
+
+    species = 'mammal'
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+
+philo = Dog("Philo", 5)
+mikey = Dog("Mikey", 6)
+munna = Dog("Munna",9)
+
+print("{} is {} and {} is {}.".format(
+    philo.name, philo.age, mikey.name, mikey.age))
+    
+def get_oldest_age(*age):
+    return max(*age)
+    
+print(get_oldest_age(philo.age,mikey.age,munna.age))    
+
+#if philo.species == "mammal":
+ #   print("{0} is a {1}!".format(philo.name, philo.species))
+    
+
+*--------practice-------*
+
+class Parent():
+    x = 1
+    def __init__(self):
+        self.y = 2
+    def hello(self):
+        print("Hello from parent")
+class Child(Parent):
+    z = 3
+    
+p,c = Parent(),Child()
+print(Parent.y)
+print(p.x,p.y)
+p.hello()
+print(c.x,c.y,c.z)
+c.hello()
+print(Parent.x,Child.x)
+
+
+
+
+
 *--------DerivedAttribute---------*
 class Person:
     def __init__(self,first,last):
