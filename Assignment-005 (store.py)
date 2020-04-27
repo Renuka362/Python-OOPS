@@ -66,7 +66,7 @@ class Store:
                 elif item.category.startswith(query.value) == True:
                     store_obj.add_item(item)
             
-        elif query.operation == 'ENDS_WITH':
+        elif query.operation == 'ENDS_WITH': 
             
             for item in self.item_list:
                 if  item.name.endswith(query.value) == True:
